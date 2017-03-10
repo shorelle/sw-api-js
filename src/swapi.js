@@ -130,9 +130,21 @@
   }
 
   /*
+   * Helper function to polyfill Promises
+   */
+  function createPromise() {
+    if (isBrowser() && !window.Promise) {
+      var promisePolyfill = require('promise-polyfill');
+      window.Promise = promisePolyfill;
+    }
+  }
+
+  /*
    * Export the module
    */
   const swapi = function(path, value, format) {
+    createPromise(); // Polyfill Promises if needed
+
     return sanitizeOptions({path, value, format});
   }
 
