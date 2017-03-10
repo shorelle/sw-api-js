@@ -41,3 +41,6 @@ test
 test.html
 test.js
 node.js
+
+# Other
+.DS_Store
