@@ -58,7 +58,6 @@ function buildBrowser(file, watch) {
     debug : true,
     cache: {},
     packageCache: {},
-    fullPaths: true,
     standalone: 'swapi'
   };
 
