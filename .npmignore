@@ -1,0 +1,16 @@
+# Tests
+test
+coverage
+
+# Build tools
+.travis.yml
+gulpfile.js
+
+# Linters
+.jscsrc
+.jshintrc
+.eslintrc*
+
+# Files
+src
+lib/swapi.browser.js
