@@ -1,3 +1,5 @@
+require('core-js/es6/promise'); // Polyfill for backwards compatibility
+
 (function() {
 
   const HOST = 'http://swapi.co/api/'; 
@@ -56,7 +58,7 @@
    * Convert parameters for API
    */
   function parseOptions(options) {
-    if (options.path.includes(HOST)) { 
+    if (options.path.indexOf(HOST) !== -1) { 
       // Get complete URL
       return getData(options.path);
     } else if (typeof options.value === 'undefined') { 
@@ -130,21 +132,9 @@
   }
 
   /*
-   * Helper function to polyfill Promises
-   */
-  function createPromise() {
-    if (isBrowser() && !window.Promise) {
-      var promisePolyfill = require('promise-polyfill');
-      window.Promise = promisePolyfill;
-    }
-  }
-
-  /*
    * Export the module
    */
   const swapi = function(path, value, format) {
-    createPromise(); // Polyfill Promises if needed
-
     return sanitizeOptions({path, value, format});
   }
 

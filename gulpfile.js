@@ -64,7 +64,9 @@ function buildBrowser(file, watch) {
   var bundler = watch ? watchify(browserify(props)) : browserify(props);
 
   function rebundle() {
-    var stream = bundler.transform('babelify', { presets: ['es2015'] })
+    var stream = bundler.transform('babelify', { 
+        presets: ['es2015']
+      })
       .bundle();
     return stream
       .pipe($.plumber())
