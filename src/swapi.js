@@ -1,4 +1,5 @@
 require('core-js/es6/promise'); // Polyfill for backwards compatibility
+const request = require('superagent');
 
 (function() {
 
@@ -9,22 +10,17 @@ require('core-js/es6/promise'); // Polyfill for backwards compatibility
    */
   function getData(url) {
     return new Promise( (resolve, reject) => {
-      const req = createXMLHttpRequest();
-
-      req.open('GET', url, true);
-      req.responseType = 'json';
-      req.setRequestHeader('Accept', 'application/json');
-      req.onload = function() {
-        if (this.status >= 200 && this.status < 300) {
-          resolve(req.response);
-        } else {
-          reject(throwError('Request status ' + this.status + ' for ' + url));
-        }
-      };
-      req.onerror = function() {
-        reject(throwError('Unable to complete request for ' + url));
-      };
-      req.send();
+      request.get(url)
+        .responseType('json')
+        .type('application/json')
+        .accept('application/json')
+        .end( (err, res) => {
+          if (err) {
+            reject(throwError('Error: ' + err + ' for ' + url));
+          } else {
+            resolve(res.body);
+          }
+        });
     });
   }
 
@@ -50,7 +46,7 @@ require('core-js/es6/promise'); // Polyfill for backwards compatibility
         }
       })
       .catch( err => {
-        return throwError('Recursive function error: ' + err);
+        return throwError('Recursive ' + err);
       });
   }
 
@@ -110,25 +106,6 @@ require('core-js/es6/promise'); // Polyfill for backwards compatibility
    */
   function throwError(message) {
     return new Error(message);
-  }
-
-  /*
-   * Helper function to check for browser environment
-   */
-  function isBrowser() {
-    return typeof(window) !== 'undefined';
-  }
-
-  /*
-   * Helper function to create relevant XMLHttpRequest
-   */
-  function createXMLHttpRequest() {
-    if (isBrowser()) {
-      return new XMLHttpRequest(); // Use native XMLHttpRequest
-    } else {
-      var xhr2 = require('xhr2');  // Use Node library
-      return new xhr2();
-    }
   }
 
   /*
