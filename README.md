@@ -1,6 +1,6 @@
 # sw-api-js
 Simple [Star Wars API](http://swapi.co) Javascript wrapper for Node and the browser. **Testing still in progress!**
-* Supports API search and getting all resource entries
+* Supports search and retrieving all resources
 * Uses native ES6 Promises
 * Node v0.10.0+
 * Includes polyfill for older browsers
@@ -15,12 +15,6 @@ Install with npm:
 Include the module (or `import swapi from 'sw-api-js'` in ES6):
 ```javascript
 var swapi = require('sw-api-js');
-
-swapi('people').then( function(data) {
-    // ... Do the things
-  }).catch( function(err) {
-    // ... Handle errors
-  });
 ```
 
 ### Browser
@@ -28,21 +22,59 @@ Download the [browserified script](lib/swapi.browser.js) and add with script tag
 ```html
  <script src="path/to/file/swapi.browser.js"></script>
 ```
-Then call the module as usual:
+## Usage
+This wrapper is designed to be simple and flexible. All endpoints can be passed through as parameters to `swapi()` and will return an object or array of objects. Use as promise:
 ```javascript
-swapi('people').then( function(data) {
+swapi('your-parameter-here').then( function(data) {
         // ... Do the things
     }).catch( function(err) {
         // ... Handle errors
     });
 ```
-
-## Methods
-This wrapper is designed to be simple and flexible. All endpoints can be passed through as parameters to `swapi()` (for future compability if new endpoints are added, etc) and will return a JSON object or array of objects.
-### Direct URL
-Resources can be called directly with a full URL:
+For example, calling the function with a full URL (see other options [below](#options)):
 ```javascript
-swapi('http://swapi.co/api/people/17').then(...)
+swapi('http://swapi.co/api/people/11').then(...)
+```
+Will return the data object:
+```javascript
+{
+    "name": "Anakin Skywalker", 
+    "height": "188", 
+    "mass": "84", 
+    "hair_color": "blond", 
+    "skin_color": "fair", 
+    "eye_color": "blue", 
+    "birth_year": "41.9BBY", 
+    "gender": "male", 
+    "homeworld": "http://swapi.co/api/planets/1/", 
+    "films": [
+        "http://swapi.co/api/films/5/", 
+        "http://swapi.co/api/films/4/", 
+        "http://swapi.co/api/films/6/"
+    ], 
+    "species": [
+        "http://swapi.co/api/species/1/"
+    ], 
+    "vehicles": [
+        "http://swapi.co/api/vehicles/44/", 
+        "http://swapi.co/api/vehicles/46/"
+    ], 
+    "starships": [
+        "http://swapi.co/api/starships/59/", 
+        "http://swapi.co/api/starships/65/", 
+        "http://swapi.co/api/starships/39/"
+    ], 
+    "created": "2014-12-10T16:20:44.310000Z", 
+    "edited": "2014-12-20T21:17:50.327000Z", 
+    "url": "http://swapi.co/api/people/11/"
+}
+```
+## Options
+The parameter options are listed below:
+### URL
+Get resource from full URL:
+```javascript
+swapi('http://swapi.co/api/people/11').then(...)
 ```
 ### All
 Get all entries from a resource (available resources are `films`,  `people`, `planets`, `species`, `starships` and `vehicles`) with the resource parameter:
@@ -85,4 +117,4 @@ swapi().then(...)
 }
 ```
 ## To-Do
-Tests and documentation!
+Testing!
