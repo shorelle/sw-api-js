@@ -12,7 +12,8 @@ const source       = require('vinyl-source-stream');
 // File paths
 const paths = {
   src: 'src/',
-  dist: 'lib/'
+  dist: 'lib/',
+  test: 'test/'
 };
 
 /*
@@ -22,6 +23,16 @@ gulp.task('clean', () => {
   return gulp.src(paths.dist, {read: false})
     .pipe($.plumber())
     .pipe($.clean());
+});
+
+/*
+ * Lint source and test files.
+ */
+gulp.task('lint', () => {
+  return gulp.src([paths.src, paths.test])
+    .pipe($.plumber())
+    .pipe($.eslint())
+    .pipe($.eslint.format());
 });
 
 /*
@@ -64,7 +75,7 @@ function buildBrowser(file, watch) {
   var bundler = watch ? watchify(browserify(props)) : browserify(props);
 
   function rebundle() {
-    var stream = bundler.transform('babelify', { 
+    var stream = bundler.transform('babelify', {
         presets: ['es2015']
       })
       .bundle();
@@ -88,7 +99,7 @@ function buildBrowser(file, watch) {
 /*
  * Build scripts.
  */
-gulp.task('build', ['clean'], function() {
+gulp.task('build', ['clean', 'lint'], function() {
   buildNode('swapi', false);
   buildBrowser('swapi', false);
 });
