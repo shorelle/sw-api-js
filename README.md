@@ -1,6 +1,7 @@
 # sw-api-js
-Simple [Star Wars API](http://swapi.co) Javascript wrapper for Node and the browser. **Testing still in progress!**
-* Supports search and retrieving all resources
+[![Build Status](https://travis-ci.org/shorelle/sw-api-js.svg?branch=master)](https://travis-ci.org/shorelle/sw-api-js) [![Coverage Status](https://coveralls.io/repos/github/shorelle/sw-api-js/badge.svg?branch=master)](https://coveralls.io/github/shorelle/sw-api-js?branch=master) [![dependencies Status](https://david-dm.org/shorelle/sw-api-js/status.svg)](https://david-dm.org/shorelle/sw-api-js) [![devDependencies Status](https://david-dm.org/shorelle/sw-api-js/dev-status.svg)](https://david-dm.org/shorelle/sw-api-js?type=dev)
+Simple [Star Wars API](http://swapi.co) Javascript wrapper for Node and the browser.
+* Supports search
 * Uses native ES6 Promises
 * Node v4+
 * Includes polyfill for older browsers
@@ -82,7 +83,7 @@ Get all entries from a resource (available resources are `films`,  `people`, `pl
 swapi('people').then(...)
 ```
 ### Single
-Add an ID parameter to get a single entry from a resource.
+Add an ID parameter to get a single entry from a resource:
 ```javascript
 swapi('people', 1).then(...)
 ```
@@ -92,7 +93,7 @@ Add `'paged'` parameter to get paginated entries by type. The ID value is the pa
 swapi('people', 1, 'paged').then(...)
 ```
 ### Search
-To get resource entries by name instead of ID (useful!) use a string as the value to call the SWAPI search feature (documentation [here](http://swapi.co/documentation#search)). You can get entries by their full name:
+To get resource entries by name instead of ID (useful!) use a string as the value to call the SWAPI search feature (full documentation [here](http://swapi.co/documentation#search)). You can get entries by their full name:
 ```javascript
 swapi('people', 'Anakin Skywalker').then(...)
 ```
@@ -101,7 +102,7 @@ Or a partial string to return all matches:
 swapi('people', 'anakin').then(...)
 ```
 ### Root
-Calling the function with no parameters will default to the base URL and return a list of all available resources on the API.
+Calling the function with no parameters will default to the base URL and return a list of all available resources.
 ```javascript
 swapi().then(...)
 ```
@@ -117,4 +118,4 @@ swapi().then(...)
 }
 ```
 ## To-Do
-Browser testing and coverage
+Additional browser testing
