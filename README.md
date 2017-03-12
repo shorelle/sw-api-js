@@ -2,7 +2,7 @@
 Simple [Star Wars API](http://swapi.co) Javascript wrapper for Node and the browser. **Testing still in progress!**
 * Supports search and retrieving all resources
 * Uses native ES6 Promises
-* Node v0.10.0+
+* Node v4+
 * Includes polyfill for older browsers
 
 ## Getting started
@@ -117,4 +117,4 @@ swapi().then(...)
 }
 ```
 ## To-Do
-Testing!
+Browser testing and coverage

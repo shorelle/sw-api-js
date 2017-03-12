@@ -1,5 +1,5 @@
 require('core-js/es6/promise'); // Polyfill for backwards compatibility
-const request = require('superagent');
+const request = require('superagent'); // XHR requests for browser and Node
 
 (function() {
 
@@ -8,7 +8,7 @@ const request = require('superagent');
   /*
    * Request data from SW API
    */
-  function getData(url) {
+  function makeRequest(url) {
     return new Promise( (resolve, reject) => {
       request.get(url)
         .responseType('json')
@@ -16,7 +16,7 @@ const request = require('superagent');
         .accept('application/json')
         .end( (err, res) => {
           if (err) {
-            reject(throwError('Error: ' + err + ' for ' + url));
+            reject(err);
           } else {
             resolve(res.body);
           }
@@ -31,7 +31,7 @@ const request = require('superagent');
     // Initialise array
     collection = (typeof collection === 'undefined') ? [] : collection;
 
-    return getData(url)
+    return makeRequest(url)
       .then( data => {
         // Add each item to array
         let length = data.results.length;
@@ -46,7 +46,20 @@ const request = require('superagent');
         }
       })
       .catch( err => {
-        return throwError('Recursive ' + err);
+        throw err;
+      });
+  }
+
+  /*
+   * Wrapper to return Promise with error handling
+   */
+  function getData(url) {
+    return makeRequest(url)
+      .then( data => {
+        return data;
+      })
+      .catch( err => {
+        throw err;
       });
   }
 
@@ -86,26 +99,22 @@ const request = require('superagent');
 
     if (typeof options.path !== 'string') {
       // Reject if input path isn't a string
-      return Promise.reject(throwError('Path must be a string.'));
+      return Promise.reject()
+        .catch(() => { throw new TypeError('Path must be a string.')});
     } else if (typeof options.value !== 'undefined' && 
         ((typeof options.value !== 'string' && typeof options.value !== 'number') || 
         (typeof options.value === 'number' && options.value%1 !== 0))) {
       // Reject if input value isn't a string or integer
-      return Promise.reject(throwError('Value must be a string or number.'));
+      return Promise.reject()
+        .catch(() => { throw new TypeError('Value must be a string or number.')});
     } else if (typeof options.format !== 'undefined' && options.format !== 'paged') {
       // Reject if input format is invalid
-      return Promise.reject(throwError('Invalid format parameter.'));
+      return Promise.reject()
+        .catch(() => { throw new Error('Invalid format parameter.')});
     } else {
       // All is well, continue!
       return parseOptions(options);
     }
-  }
-
-  /*
-   * Helper function for Promise errors
-   */
-  function throwError(message) {
-    return new Error(message);
   }
 
   /*
