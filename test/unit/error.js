@@ -4,9 +4,16 @@
 
  module.exports = (function() {
 
-  describe('invalid resource', function() {
+  describe('invalid all resources', function() {
     it('returns a Not Found error', function() {
       return expect(swapi('invalid-resource'))
+        .to.be.rejectedWith(Error, 'Not Found');
+    });
+  });
+
+  describe('invalid single resource', function() {
+    it('returns a Not Found error', function() {
+      return expect(swapi('invalid-resource', 1))
         .to.be.rejectedWith(Error, 'Not Found');
     });
   });
@@ -26,13 +33,8 @@
   });
 
   describe('format not equal to paged', function() {
-    it('returns an error', function() {
+    it('returns an error with invalid message', function() {
       return expect(swapi('people', 1, 'invalid format value'))
-        .to.be.rejectedWith(Error, 'Invalid format parameter.');
-    });
-
-    it('returns an error', function() {
-      return expect(swapi('people', 1, {}))
         .to.be.rejectedWith(Error, 'Invalid format parameter.');
     });
   });
