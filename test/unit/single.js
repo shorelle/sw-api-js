@@ -2,7 +2,7 @@
  * Get single resource tests
  */
 
- module.exports = (function() {
+module.exports = (function() {
 
   describe('person', function() {
     it('returns the person object', function() {
@@ -53,4 +53,3 @@
   });
 
 })();
-  

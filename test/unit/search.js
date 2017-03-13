@@ -2,7 +2,7 @@
  * Get search tests
  */
 
- module.exports = (function() {
+module.exports = (function() {
 
   describe('search with exact result', function() {
     it('returns an array with a single object', function() {
@@ -65,4 +65,3 @@
   });
 
 })();
-  

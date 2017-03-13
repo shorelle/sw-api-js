@@ -19,7 +19,7 @@ const paths = {
 /*
  * Deletes processed files.
  */
-gulp.task('clean', () => {
+gulp.task('clean', function() {
   return gulp.src(paths.dist, {read: false})
     .pipe($.plumber())
     .pipe($.clean());
@@ -28,11 +28,15 @@ gulp.task('clean', () => {
 /*
  * Lint source and test files.
  */
-gulp.task('lint', () => {
-  return gulp.src([paths.src, paths.test])
-    .pipe($.plumber())
-    .pipe($.eslint())
-    .pipe($.eslint.format());
+gulp.task('lint', function() {
+  return gulp.watch([paths.src + '/**/*.js', paths.test + '/**/*.js'])
+    .on('change', function(file) {
+      gulp.src(file.path)
+        .pipe($.plumber())
+        .pipe($.eslint())
+        .pipe($.eslint.format())
+        .pipe($.eslint.failAfterError());
+    });
 });
 
 /*
@@ -45,17 +49,13 @@ function buildNode(file, watch) {
         $.util.log('Copying to lib...');
         gulp.src(file.path)
           .pipe($.plumber())
-          .pipe($.babel({
-              presets: ['es2015']
-          }))
+          .pipe($.babel())
           .pipe(gulp.dest(paths.dist));
       });
   } else {
     return gulp.src(paths.src + file + '.js')
       .pipe($.plumber())
-      .pipe($.babel({
-            presets: ['es2015']
-        }))
+      .pipe($.babel())
       .pipe(gulp.dest(paths.dist));
   }
 }
@@ -64,7 +64,7 @@ function buildNode(file, watch) {
  * Transpiles and uglifies JS file for browser.
  */
 function buildBrowser(file, watch) {
-  var props = {
+  const props = {
     entries: [paths.src + file + '.js'],
     debug : true,
     cache: {},
@@ -72,12 +72,10 @@ function buildBrowser(file, watch) {
     standalone: 'swapi'
   };
 
-  var bundler = watch ? watchify(browserify(props)) : browserify(props);
+  const bundler = watch ? watchify(browserify(props)) : browserify(props);
 
   function rebundle() {
-    var stream = bundler.transform('babelify', {
-        presets: ['es2015']
-      })
+    let stream = bundler.transform('babelify')
       .bundle();
     return stream
       .pipe($.plumber())

@@ -2,7 +2,7 @@
  * Get error tests
  */
 
- module.exports = (function() {
+module.exports = (function() {
 
   describe('invalid all resources', function() {
     it('returns a Not Found error', function() {
@@ -40,4 +40,3 @@
   });
 
 })();
-  

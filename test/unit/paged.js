@@ -2,7 +2,7 @@
  * Get paged resource tests
  */
 
- module.exports = (function() {
+module.exports = (function() {
 
   describe('paged people', function() {
     it('returns paged object', function() {
@@ -53,4 +53,3 @@
   });
 
 })();
-  

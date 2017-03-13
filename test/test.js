@@ -30,5 +30,5 @@ describe('get', function() {
   require('./unit/paged.js');
   require('./unit/search.js');
   require('./unit/error.js');
-  
+
 });

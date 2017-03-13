@@ -1,0 +1,17 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "mocha": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-console": "off",
+    "no-undef": "off",
+    "no-unused-vars": ["error", { "vars": "local" }]
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}

@@ -1,6 +1,7 @@
 /*
  * Helper function to save and load Nock records
  */
+
 var fs = require('fs');
 
 module.exports = function() {

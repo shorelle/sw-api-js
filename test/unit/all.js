@@ -2,7 +2,7 @@
  * Get all resource tests
  */
 
- module.exports = (function() {
+module.exports = (function() {
 
   describe('all people', function() {
     this.timeout(20000);
@@ -89,4 +89,3 @@
   });
 
 })();
-  
