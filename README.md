@@ -11,7 +11,7 @@ Simple [Star Wars API](http://swapi.co) Javascript wrapper for Node and the brow
 ### Node
 Install with npm:
 ```
-// TO-DO: module to be published
+npm install sw-api-js
 ```
 Include the module (or `import swapi from 'sw-api-js'` in ES6):
 ```javascript
