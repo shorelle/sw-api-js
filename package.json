@@ -22,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/shorelle/sw-api-js.git"
   },
-  "author": "shorelle <desiree.surjadi@gmail.com>",
+  "author": "Desiree Surjadi <fireskywalker@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",
