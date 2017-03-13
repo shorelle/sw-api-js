@@ -1,7 +1,8 @@
 {
   "name": "sw-api-js",
   "version": "1.0.0",
-  "description": "Simple Star Wars API wrapper for Node and the browser.",
+  "description": "Star Wars API wrapper for Node and the browser.",
+  "main": "lib/swapi.js",
   "scripts": {
     "test": "mocha -R spec",
     "test:record": "NOCK_RECORD=1 npm test",
@@ -12,15 +13,16 @@
   },
   "keywords": [
     "star wars",
-    "planets",
     "api",
+    "star wars api",
+    "swapi",
     "javascript"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/shorelle/sw-api-js.git"
   },
-  "author": "shorelle",
+  "author": "shorelle <desiree.surjadi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",

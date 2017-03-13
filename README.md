@@ -117,5 +117,11 @@ swapi().then(...)
     "vehicles": "http://swapi.co/api/vehicles/"
 }
 ```
+
+## Tests
+```
+npm test
+```
+
 ## To-Do
 Additional browser testing
